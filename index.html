@@ -897,6 +897,281 @@
     </div>
   </section>
 
+  <!-- ============ ÉTAPE 5 ============ -->
+  <section class="etape">
+    <div class="etape-header">
+      <div class="numero">5</div>
+      <div class="etape-titre">
+        <h2>Quand ça déborde, ça passe à la ligne</h2>
+        <p>Découvre <code>flex-wrap</code> et le retour à la ligne automatique</p>
+      </div>
+    </div>
+
+    <div class="etape-body">
+
+      <div class="analogie">
+        <h3>Analogie pour le HTML</h3>
+        <p>
+          Cette fois, on a mis <strong>beaucoup de carrés</strong> dans le conteneur :
+          plus que ce qu'une seule ligne peut contenir. Le HTML est toujours simple :
+          on répète juste la balise <code>&lt;div class="carre"&gt;</code> autant de fois
+          qu'on veut d'éléments.
+        </p>
+        <p>
+          Le HTML <strong>ne décide pas</strong> du nombre de lignes ou de colonnes :
+          il liste juste les éléments. C'est le CSS qui choisit comment les organiser.
+        </p>
+      </div>
+
+      <div class="bloc-cours">
+        <h3>Le concept Flexbox</h3>
+        <p>
+          Par défaut (<code>flex-wrap: nowrap</code>), Flexbox <strong>force tous les items
+          sur une seule ligne</strong>, quitte à les écraser ou à les faire déborder.
+        </p>
+        <p>
+          ▸ <code>nowrap</code> (par défaut) : tout reste sur une ligne, les items se compressent<br>
+          ▸ <code>wrap</code> : si ça ne tient pas, les items <strong>passent à la ligne suivante</strong><br>
+          ▸ <code>wrap-reverse</code> : pareil que <code>wrap</code>, mais les nouvelles lignes
+          s'ajoutent <strong>au-dessus</strong> au lieu d'en dessous
+        </p>
+        <p>
+          <strong>Astuce :</strong> avec <code>flex-wrap: wrap</code>, ton layout devient
+          <strong>responsive automatiquement</strong>. Réduis la fenêtre du navigateur :
+          les carrés se réorganisent tout seuls.
+        </p>
+      </div>
+
+      <div class="analogie">
+        <h3>Analogie pour le CSS</h3>
+        <p>
+          Pense à des <strong>livres sur une étagère</strong>. Si l'étagère est trop courte
+          pour tous tes livres :
+        </p>
+        <p>
+          ▸ <code>nowrap</code> = tu <strong>écrases tous les livres</strong> pour qu'ils
+          tiennent sur une seule étagère (ils s'amincissent)<br>
+          ▸ <code>wrap</code> = tu utilises <strong>l'étagère du dessous</strong> pour les
+          livres qui ne rentrent plus<br>
+          ▸ <code>wrap-reverse</code> = tu utilises <strong>l'étagère du dessus</strong>
+          pour le débordement
+        </p>
+      </div>
+
+      <div class="mission">
+        <h3>Mission</h3>
+        <p>
+          Active <code>wrap</code> et redimensionne ta fenêtre. Observe comment les carrés
+          se réorganisent automatiquement sur plusieurs lignes. Puis teste
+          <code>wrap-reverse</code> : où apparaît la nouvelle ligne ?
+        </p>
+      </div>
+
+      <div class="indice">
+        <h3>Astuce</h3>
+        <p>
+          Combine <code>flex-wrap: wrap</code> avec un <code>gap</code> : tu obtiens une
+          grille fluide en deux lignes de CSS. C'est la base d'une galerie d'images responsive.
+        </p>
+      </div>
+
+      <div class="controles">
+        <div class="controle">
+          <label for="fw5">flex-wrap</label>
+          <select id="fw5" onchange="up5()">
+            <option value="nowrap">nowrap</option>
+            <option value="wrap">wrap</option>
+            <option value="wrap-reverse">wrap-reverse</option>
+          </select>
+        </div>
+        <div class="controle">
+          <label for="gap5">gap (px)</label>
+          <select id="gap5" onchange="up5()">
+            <option value="0">0</option>
+            <option value="10">10</option>
+            <option value="20">20</option>
+            <option value="40">40</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="demo" id="demo5">
+        <div class="carre c1">A</div>
+        <div class="carre c2">B</div>
+        <div class="carre c3">C</div>
+        <div class="carre c1">D</div>
+        <div class="carre c2">E</div>
+        <div class="carre c3">F</div>
+        <div class="carre c1">G</div>
+        <div class="carre c2">H</div>
+        <div class="carre c3">I</div>
+        <div class="carre c1">J</div>
+        <div class="carre c2">K</div>
+        <div class="carre c3">L</div>
+      </div>
+
+      <div class="code-tabs">
+        <div class="code-bloc">
+          <div class="code-header html-tab">HTML</div>
+<pre><span class="punct">&lt;</span><span class="tag">div</span> <span class="attr">class</span>=<span class="str">"demo"</span><span class="punct">&gt;</span>
+  <span class="punct">&lt;</span><span class="tag">div</span> <span class="attr">class</span>=<span class="str">"carre"</span><span class="punct">&gt;</span>A<span class="punct">&lt;/</span><span class="tag">div</span><span class="punct">&gt;</span>
+  <span class="punct">&lt;</span><span class="tag">div</span> <span class="attr">class</span>=<span class="str">"carre"</span><span class="punct">&gt;</span>B<span class="punct">&lt;/</span><span class="tag">div</span><span class="punct">&gt;</span>
+  <span class="comment">/* ... 12 carrés au total ... */</span>
+<span class="punct">&lt;/</span><span class="tag">div</span><span class="punct">&gt;</span></pre>
+        </div>
+        <div class="code-bloc">
+          <div class="code-header css-tab">CSS</div>
+<pre><span class="selector">.demo</span> <span class="punct">{</span>
+  <span class="prop">display</span><span class="punct">:</span> <span class="value">flex</span><span class="punct">;</span>
+  <span class="prop">flex-wrap</span><span class="punct">:</span> <span class="value" id="v-fw5">nowrap</span><span class="punct">;</span>
+  <span class="prop">gap</span><span class="punct">:</span> <span class="value" id="v-gap5">0</span>px<span class="punct">;</span>
+<span class="punct">}</span></pre>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ ÉTAPE 6 ============ -->
+  <section class="etape">
+    <div class="etape-header">
+      <div class="numero">6</div>
+      <div class="etape-titre">
+        <h2>Changer l'ordre sans toucher au HTML</h2>
+        <p>Joue avec <code>order</code> pour réorganiser visuellement les items</p>
+      </div>
+    </div>
+
+    <div class="etape-body">
+
+      <div class="analogie">
+        <h3>Analogie pour le HTML</h3>
+        <p>
+          Le HTML reste figé : A, B, C dans cet ordre. C'est ça l'<strong>ordre du document</strong>,
+          celui que les lecteurs d'écran et les moteurs de recherche utilisent.
+        </p>
+        <p>
+          Mais visuellement, on peut tout chambouler avec une seule propriété CSS,
+          <strong>sans modifier le HTML</strong>. Pratique pour adapter un design selon
+          la taille de l'écran.
+        </p>
+      </div>
+
+      <div class="bloc-cours">
+        <h3>Le concept Flexbox</h3>
+        <p>
+          La propriété <code>order</code> s'applique <strong>aux items</strong> (pas au conteneur).
+          Elle prend un nombre entier : par défaut, tous les items ont <code>order: 0</code>.
+        </p>
+        <p>
+          ▸ Les items sont triés du <strong>plus petit au plus grand</strong> <code>order</code><br>
+          ▸ <code>order: -1</code> envoie un item <strong>tout au début</strong><br>
+          ▸ <code>order: 99</code> l'envoie <strong>tout à la fin</strong>
+        </p>
+        <p>
+          <strong>Et si deux items ont le même <code>order</code> ?</strong> C'est l'<strong>ordre
+          du HTML qui tranche</strong> : celui qui est écrit en premier dans le code source
+          passe en premier à l'écran. Autrement dit, <code>order</code> ne casse pas l'ordre
+          d'origine, il le <strong>réorganise par groupes</strong>.
+        </p>
+        <p>
+          Exemple : si A a <code>order: 2</code>, B a <code>order: 1</code>, et C a <code>order: 1</code>,
+          le rendu visuel sera <strong>B, C, A</strong>. B passe avant C parce qu'il est écrit
+          avant dans le HTML, même si les deux ont le même <code>order</code>.
+        </p>
+        <p>
+          <strong>Attention accessibilité :</strong> <code>order</code> ne change que l'ordre
+          <strong>visuel</strong>. Un lecteur d'écran lira toujours le HTML dans son ordre
+          d'origine. À utiliser pour la mise en page, pas pour le sens du contenu.
+        </p>
+      </div>
+
+      <div class="analogie">
+        <h3>Analogie pour le CSS</h3>
+        <p>
+          Imagine une <strong>file d'attente à la poste</strong>. Le HTML, c'est l'ordre dans
+          lequel les gens sont arrivés (A puis B puis C).
+        </p>
+        <p>
+          La propriété <code>order</code>, c'est comme <strong>donner un numéro de priorité</strong>
+          à chaque personne. Celui qui a le plus petit numéro passe en premier au guichet,
+          peu importe quand il est arrivé.
+        </p>
+        <p>
+          Donner <code>order: -1</code> à C, c'est comme dire "monsieur C, vous êtes prioritaire,
+          passez devant tout le monde".
+        </p>
+      </div>
+
+      <div class="mission">
+        <h3>Missions</h3>
+        <p>
+          <strong>1 —</strong> Inverse l'ordre visuel : affiche C, B, A à l'écran.<br>
+          <strong>2 —</strong> Mets B en premier, sans toucher à A et C.<br>
+          <strong>3 —</strong> Compare avec <code>row-reverse</code> de l'étape 4 :
+          quelle différence ?
+        </p>
+      </div>
+
+      <div class="controles">
+        <div class="controle">
+          <label for="oA">order de A</label>
+          <select id="oA" onchange="up6()">
+            <option value="0">0</option>
+            <option value="-1">-1</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+          </select>
+        </div>
+        <div class="controle">
+          <label for="oB">order de B</label>
+          <select id="oB" onchange="up6()">
+            <option value="0">0</option>
+            <option value="-1">-1</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+          </select>
+        </div>
+        <div class="controle">
+          <label for="oC">order de C</label>
+          <select id="oC" onchange="up6()">
+            <option value="0">0</option>
+            <option value="-1">-1</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="demo" id="demo6">
+        <div class="carre c1" id="item6-A">A</div>
+        <div class="carre c2" id="item6-B">B</div>
+        <div class="carre c3" id="item6-C">C</div>
+      </div>
+
+      <div class="code-tabs">
+        <div class="code-bloc">
+          <div class="code-header html-tab">HTML</div>
+<pre><span class="punct">&lt;</span><span class="tag">div</span> <span class="attr">class</span>=<span class="str">"demo"</span><span class="punct">&gt;</span>
+  <span class="punct">&lt;</span><span class="tag">div</span> <span class="attr">class</span>=<span class="str">"carre a"</span><span class="punct">&gt;</span>A<span class="punct">&lt;/</span><span class="tag">div</span><span class="punct">&gt;</span>
+  <span class="punct">&lt;</span><span class="tag">div</span> <span class="attr">class</span>=<span class="str">"carre b"</span><span class="punct">&gt;</span>B<span class="punct">&lt;/</span><span class="tag">div</span><span class="punct">&gt;</span>
+  <span class="punct">&lt;</span><span class="tag">div</span> <span class="attr">class</span>=<span class="str">"carre c"</span><span class="punct">&gt;</span>C<span class="punct">&lt;/</span><span class="tag">div</span><span class="punct">&gt;</span>
+<span class="punct">&lt;/</span><span class="tag">div</span><span class="punct">&gt;</span></pre>
+        </div>
+        <div class="code-bloc">
+          <div class="code-header css-tab">CSS</div>
+<pre><span class="selector">.demo</span> <span class="punct">{</span> <span class="prop">display</span><span class="punct">:</span> <span class="value">flex</span><span class="punct">;</span> <span class="punct">}</span>
+
+<span class="selector">.a</span> <span class="punct">{</span> <span class="prop">order</span><span class="punct">:</span> <span class="value" id="v-oA">0</span><span class="punct">;</span> <span class="punct">}</span>
+<span class="selector">.b</span> <span class="punct">{</span> <span class="prop">order</span><span class="punct">:</span> <span class="value" id="v-oB">0</span><span class="punct">;</span> <span class="punct">}</span>
+<span class="selector">.c</span> <span class="punct">{</span> <span class="prop">order</span><span class="punct">:</span> <span class="value" id="v-oC">0</span><span class="punct">;</span> <span class="punct">}</span></pre>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <footer class="footer">
     Astuce : ouvre l'inspecteur (clic droit -> Inspecter) pour voir le code en direct
   </footer>
@@ -939,6 +1214,28 @@
       document.getElementById('v-fd4').textContent = fd;
       document.getElementById('v-jc4').textContent = jc;
       document.getElementById('v-ai4').textContent = ai;
+    }
+
+    function up5() {
+      const fw = document.getElementById('fw5').value;
+      const gap = document.getElementById('gap5').value;
+      const d = document.getElementById('demo5');
+      d.style.flexWrap = fw;
+      d.style.gap = gap + 'px';
+      document.getElementById('v-fw5').textContent = fw;
+      document.getElementById('v-gap5').textContent = gap;
+    }
+
+    function up6() {
+      const oA = document.getElementById('oA').value;
+      const oB = document.getElementById('oB').value;
+      const oC = document.getElementById('oC').value;
+      document.getElementById('item6-A').style.order = oA;
+      document.getElementById('item6-B').style.order = oB;
+      document.getElementById('item6-C').style.order = oC;
+      document.getElementById('v-oA').textContent = oA;
+      document.getElementById('v-oB').textContent = oB;
+      document.getElementById('v-oC').textContent = oC;
     }
   </script>
 </body>
