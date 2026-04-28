@@ -1,0 +1,945 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Flexbox Lab</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'SF Pro Display', -apple-system, system-ui, sans-serif;
+      background: #0f172a;
+      color: #e2e8f0;
+      padding: 30px 20px;
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    .header {
+      max-width: 1100px;
+      margin: 0 auto 50px;
+      text-align: center;
+    }
+
+    .header h1 {
+      font-size: 42px;
+      font-weight: 800;
+      background: linear-gradient(135deg, #06b6d4 0%, #8b5cf6 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 10px;
+      letter-spacing: -0.02em;
+    }
+
+    .header p {
+      color: #94a3b8;
+      font-size: 16px;
+    }
+
+    .etape {
+      max-width: 1100px;
+      margin: 0 auto 40px;
+      background: #1e293b;
+      border: 1px solid #334155;
+      border-radius: 16px;
+      overflow: hidden;
+    }
+
+    .etape-header {
+      padding: 24px 30px;
+      border-bottom: 1px solid #334155;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .numero {
+      width: 40px;
+      height: 40px;
+      background: linear-gradient(135deg, #06b6d4 0%, #8b5cf6 100%);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 18px;
+      color: white;
+      flex-shrink: 0;
+    }
+
+    .etape-titre {
+      flex: 1;
+    }
+
+    .etape-titre h2 {
+      font-size: 22px;
+      font-weight: 700;
+      color: #f1f5f9;
+      margin-bottom: 4px;
+    }
+
+    .etape-titre p {
+      color: #94a3b8;
+      font-size: 14px;
+    }
+
+    .etape-body {
+      padding: 30px;
+    }
+
+    .bloc-cours {
+      background: rgba(6, 182, 212, 0.08);
+      border-left: 3px solid #06b6d4;
+      padding: 18px 22px;
+      border-radius: 6px;
+      margin-bottom: 18px;
+      font-size: 14.5px;
+      color: #cbd5e1;
+    }
+
+    .bloc-cours h3 {
+      color: #67e8f9;
+      font-size: 13px;
+      font-weight: 700;
+      margin-bottom: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .bloc-cours p {
+      margin-bottom: 10px;
+    }
+
+    .bloc-cours p:last-child {
+      margin-bottom: 0;
+    }
+
+    .bloc-cours code {
+      background: rgba(6, 182, 212, 0.15);
+      padding: 2px 7px;
+      border-radius: 4px;
+      font-size: 13px;
+      color: #67e8f9;
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .bloc-cours strong {
+      color: #f1f5f9;
+    }
+
+    .analogie {
+      background: rgba(244, 114, 182, 0.06);
+      border-left: 3px solid #f472b6;
+      padding: 14px 20px;
+      border-radius: 6px;
+      margin-bottom: 18px;
+      font-size: 14px;
+      color: #fbcfe8;
+    }
+
+    .analogie h3 {
+      color: #f9a8d4;
+      font-size: 13px;
+      font-weight: 700;
+      margin-bottom: 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .analogie p {
+      margin-bottom: 8px;
+    }
+
+    .analogie p:last-child {
+      margin-bottom: 0;
+    }
+
+    .analogie strong {
+      color: #fce7f3;
+    }
+
+    .analogie code {
+      background: rgba(244, 114, 182, 0.15);
+      padding: 2px 7px;
+      border-radius: 4px;
+      font-size: 13px;
+      color: #f9a8d4;
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .mission {
+      background: rgba(139, 92, 246, 0.1);
+      border-left: 3px solid #8b5cf6;
+      padding: 14px 18px;
+      border-radius: 6px;
+      margin-bottom: 24px;
+      font-size: 14px;
+      color: #c4b5fd;
+    }
+
+    .mission h3 {
+      color: #ddd6fe;
+      font-size: 13px;
+      font-weight: 700;
+      margin-bottom: 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .mission strong { color: #ddd6fe; }
+    .mission code {
+      background: rgba(139, 92, 246, 0.2);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 12.5px;
+      color: #ddd6fe;
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .indice {
+      background: rgba(251, 191, 36, 0.08);
+      border-left: 3px solid #fbbf24;
+      padding: 12px 18px;
+      border-radius: 6px;
+      margin-bottom: 24px;
+      font-size: 13.5px;
+      color: #fde68a;
+    }
+
+    .indice h3 {
+      color: #fef3c7;
+      font-size: 13px;
+      font-weight: 700;
+      margin-bottom: 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .indice strong { color: #fef3c7; }
+    .indice code {
+      background: rgba(251, 191, 36, 0.15);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 12.5px;
+      color: #fef3c7;
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .controles {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      margin-bottom: 24px;
+      padding: 20px;
+      background: #0f172a;
+      border-radius: 10px;
+      border: 1px solid #334155;
+    }
+
+    .controle {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      flex: 1;
+      min-width: 180px;
+    }
+
+    .controle label {
+      font-size: 12px;
+      font-weight: 600;
+      color: #94a3b8;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .controle select {
+      padding: 10px 14px;
+      background: #1e293b;
+      color: #f1f5f9;
+      border: 1px solid #475569;
+      border-radius: 8px;
+      font-size: 14px;
+      cursor: pointer;
+      font-family: inherit;
+      transition: border-color 0.2s;
+    }
+
+    .controle select:hover { border-color: #06b6d4; }
+    .controle select:focus { outline: none; border-color: #06b6d4; }
+
+    .demo {
+      border: 2px dashed #475569;
+      background: #0f172a;
+      min-height: 200px;
+      padding: 12px;
+      border-radius: 10px;
+      display: flex;
+      margin-bottom: 24px;
+    }
+
+    .demo.haute { min-height: 320px; }
+
+    .carre {
+      width: 80px;
+      height: 80px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: 700;
+      font-size: 20px;
+      flex-shrink: 0;
+    }
+
+    .c1 { background: linear-gradient(135deg, #f43f5e 0%, #e11d48 100%); }
+    .c2 { background: linear-gradient(135deg, #06b6d4 0%, #0891b2 100%); }
+    .c3 { background: linear-gradient(135deg, #10b981 0%, #059669 100%); }
+
+    .code-tabs {
+      display: flex;
+      gap: 16px;
+    }
+
+    .code-bloc {
+      flex: 1;
+      background: #020617;
+      border: 1px solid #334155;
+      border-radius: 10px;
+      overflow: hidden;
+      min-width: 0;
+    }
+
+    .code-header {
+      padding: 10px 16px;
+      background: #1e293b;
+      border-bottom: 1px solid #334155;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .code-header.html-tab { color: #f97316; }
+    .code-header.css-tab  { color: #06b6d4; }
+
+    .code-header::before {
+      content: '';
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    .code-header.html-tab::before { background: #f97316; }
+    .code-header.css-tab::before  { background: #06b6d4; }
+
+    .code-bloc pre {
+      padding: 16px 20px;
+      font-family: 'JetBrains Mono', 'Fira Code', monospace;
+      font-size: 13px;
+      line-height: 1.7;
+      color: #cbd5e1;
+      overflow-x: auto;
+      white-space: pre;
+    }
+
+    .tag      { color: #f472b6; }
+    .attr     { color: #fbbf24; }
+    .str      { color: #86efac; }
+    .selector { color: #c4b5fd; }
+    .prop     { color: #fbbf24; }
+    .value    { color: #86efac; }
+    .comment  { color: #64748b; font-style: italic; }
+    .punct    { color: #94a3b8; }
+
+    .footer {
+      max-width: 1100px;
+      margin: 50px auto 20px;
+      text-align: center;
+      color: #64748b;
+      font-size: 13px;
+      padding: 20px;
+      border-top: 1px solid #334155;
+    }
+
+    @media (max-width: 768px) {
+      .code-tabs { flex-direction: column; }
+      .header h1 { font-size: 32px; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="header">
+    <h1>Flexbox Lab</h1>
+    <p>Manipule les valeurs, observe les carrés bouger, lis le code en direct</p>
+  </header>
+
+  <!-- ============ ÉTAPE 1 ============ -->
+  <section class="etape">
+    <div class="etape-header">
+      <div class="numero">1</div>
+      <div class="etape-titre">
+        <h2>Un carré qui voyage</h2>
+        <p>Découvre <code>display: flex</code> et <code>justify-content</code></p>
+      </div>
+    </div>
+
+    <div class="etape-body">
+
+      <div class="analogie">
+        <h3>Analogie pour le HTML</h3>
+        <p>
+          Imagine le HTML comme un <strong>plan d'architecte</strong>.
+          Une balise <code>&lt;div&gt;</code> est une <strong>boîte vide</strong> qu'on dessine sur le plan.
+          Une boîte peut contenir d'autres boîtes : c'est le principe des
+          <strong>poupées russes</strong>.
+        </p>
+        <p>
+          L'attribut <code>class="..."</code> est comme une <strong>étiquette</strong> qu'on colle
+          sur la boîte. Plus tard, en CSS, on dira "applique ce style à toutes les boîtes
+          qui portent l'étiquette X".
+        </p>
+        <p>
+          Ici, on a une grande boîte étiquetée <code>demo</code>, et à l'intérieur,
+          une petite boîte étiquetée <code>carre</code>.
+        </p>
+      </div>
+
+      <div class="bloc-cours">
+        <h3>Le concept Flexbox</h3>
+        <p>
+          Quand tu écris <code>display: flex</code> sur une boîte, elle devient un
+          <strong>conteneur flex</strong>. Tous ses enfants directs deviennent
+          des <strong>flex items</strong> et se rangent automatiquement sur une ligne horizontale.
+        </p>
+        <p>
+          La propriété <code>justify-content</code> contrôle la position des items
+          sur l'<strong>axe principal</strong> (par défaut horizontal, de gauche à droite).
+        </p>
+      </div>
+
+      <div class="analogie">
+        <h3>Analogie pour le CSS</h3>
+        <p>
+          Imagine que la boîte <code>demo</code> est un <strong>plateau de service</strong>
+          dans un restaurant. Tu poses des verres dessus.
+        </p>
+        <p>
+          ▸ <code>flex-start</code> : tu pousses tous les verres <strong>contre le bord gauche</strong> du plateau<br>
+          ▸ <code>center</code> : tu rassembles les verres <strong>au milieu</strong> du plateau<br>
+          ▸ <code>flex-end</code> : tu pousses tous les verres <strong>contre le bord droit</strong>
+        </p>
+      </div>
+
+      <div class="mission">
+        <h3>Mission</h3>
+        <p>
+          Envoie le carré à gauche, puis au centre, puis à droite.
+          Lis le CSS qui se met à jour à chaque changement.
+        </p>
+      </div>
+
+      <div class="controles">
+        <div class="controle">
+          <label for="jc1">justify-content</label>
+          <select id="jc1" onchange="up1()">
+            <option value="flex-start">flex-start</option>
+            <option value="center">center</option>
+            <option value="flex-end">flex-end</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="demo" id="demo1">
+        <div class="carre c1">A</div>
+      </div>
+
+      <div class="code-tabs">
+        <div class="code-bloc">
+          <div class="code-header html-tab">HTML</div>
+<pre><span class="punct">&lt;</span><span class="tag">div</span> <span class="attr">class</span>=<span class="str">"demo"</span><span class="punct">&gt;</span>
+  <span class="punct">&lt;</span><span class="tag">div</span> <span class="attr">class</span>=<span class="str">"carre"</span><span class="punct">&gt;</span>A<span class="punct">&lt;/</span><span class="tag">div</span><span class="punct">&gt;</span>
+<span class="punct">&lt;/</span><span class="tag">div</span><span class="punct">&gt;</span></pre>
+        </div>
+        <div class="code-bloc">
+          <div class="code-header css-tab">CSS</div>
+<pre><span class="selector">.demo</span> <span class="punct">{</span>
+  <span class="prop">display</span><span class="punct">:</span> <span class="value">flex</span><span class="punct">;</span>
+  <span class="prop">justify-content</span><span class="punct">:</span> <span class="value" id="v-jc1">flex-start</span><span class="punct">;</span>
+<span class="punct">}</span>
+
+<span class="selector">.carre</span> <span class="punct">{</span>
+  <span class="prop">width</span><span class="punct">:</span> <span class="value">80px</span><span class="punct">;</span>
+  <span class="prop">height</span><span class="punct">:</span> <span class="value">80px</span><span class="punct">;</span>
+<span class="punct">}</span></pre>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ ÉTAPE 2 ============ -->
+  <section class="etape">
+    <div class="etape-header">
+      <div class="numero">2</div>
+      <div class="etape-titre">
+        <h2>Plusieurs carrés et de l'espace</h2>
+        <p>Distribue l'espace avec <code>space-*</code> et <code>gap</code></p>
+      </div>
+    </div>
+
+    <div class="etape-body">
+
+      <div class="analogie">
+        <h3>Analogie pour le HTML</h3>
+        <p>
+          Maintenant on pose <strong>trois verres identiques</strong> sur le même plateau.
+          En HTML, ça veut juste dire qu'on écrit <strong>trois fois</strong>
+          la même balise <code>&lt;div class="carre"&gt;</code> à l'intérieur du conteneur.
+        </p>
+        <p>
+          Note bien : les enfants se mettent <strong>les uns à la suite des autres</strong>,
+          dans l'ordre où on les écrit dans le HTML.
+        </p>
+      </div>
+
+      <div class="bloc-cours">
+        <h3>Le concept Flexbox</h3>
+        <p>
+          Avec <strong>plusieurs items</strong>, <code>justify-content</code> ne sert plus
+          seulement à les pousser d'un côté : il peut aussi <strong>distribuer l'espace</strong>
+          entre eux.
+        </p>
+        <p>
+          ▸ <code>space-between</code> : premier item collé à gauche, dernier item collé à droite,
+          espace réparti <strong>entre</strong> les items. <em>Aucun espace sur les bords.</em><br>
+          ▸ <code>space-around</code> : chaque item a un espace identique <strong>autour</strong> de lui.
+          Les bords ont la moitié de l'espace par rapport à l'intérieur.<br>
+          ▸ <code>space-evenly</code> : tous les espaces sont strictement <strong>égaux</strong>,
+          y compris ceux des bords.
+        </p>
+        <p>
+          La propriété <code>gap</code> est différente : elle ajoute un <strong>écart fixe</strong>
+          entre les items, sans toucher aux bords. On peut combiner <code>gap</code> avec
+          <code>justify-content</code>.
+        </p>
+      </div>
+
+      <div class="analogie">
+        <h3>Analogie pour le CSS</h3>
+        <p>
+          Reprends le plateau de service avec trois verres.
+        </p>
+        <p>
+          ▸ <code>space-between</code> = <strong>une rangée d'élèves</strong> alignés contre les murs
+          d'une salle de classe : le premier touche le mur gauche, le dernier touche le mur droit,
+          et les autres se répartissent au milieu.<br>
+          ▸ <code>space-around</code> = <strong>des piliers d'autoroute</strong> espacés régulièrement,
+          chacun avec sa propre "zone perso" autour de lui.<br>
+          ▸ <code>gap</code> = la <strong>marge entre deux pots de fleurs</strong> que tu fixes toi-même
+          à l'avance, indépendamment de l'espace total disponible.
+        </p>
+      </div>
+
+      <div class="mission">
+        <h3>Mission</h3>
+        <p>
+          Teste <code>space-between</code> puis <code>space-around</code>.
+          Observe attentivement les <strong>bords</strong> du conteneur. Que vois-tu ?
+        </p>
+      </div>
+
+      <div class="indice">
+        <h3>Astuce</h3>
+        <p>
+          Ajoute aussi du <code>gap</code> et regarde comment ça se combine
+          (ou pas) avec les valeurs <code>space-*</code>.
+        </p>
+      </div>
+
+      <div class="controles">
+        <div class="controle">
+          <label for="jc2">justify-content</label>
+          <select id="jc2" onchange="up2()">
+            <option value="flex-start">flex-start</option>
+            <option value="center">center</option>
+            <option value="flex-end">flex-end</option>
+            <option value="space-between">space-between</option>
+            <option value="space-around">space-around</option>
+            <option value="space-evenly">space-evenly</option>
+          </select>
+        </div>
+        <div class="controle">
+          <label for="gap2">gap (px)</label>
+          <select id="gap2" onchange="up2()">
+            <option value="0">0</option>
+            <option value="10">10</option>
+            <option value="20">20</option>
+            <option value="40">40</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="demo" id="demo2">
+        <div class="carre c1">A</div>
+        <div class="carre c2">B</div>
+        <div class="carre c3">C</div>
+      </div>
+
+      <div class="code-tabs">
+        <div class="code-bloc">
+          <div class="code-header html-tab">HTML</div>
+<pre><span class="punct">&lt;</span><span class="tag">div</span> <span class="attr">class</span>=<span class="str">"demo"</span><span class="punct">&gt;</span>
+  <span class="punct">&lt;</span><span class="tag">div</span> <span class="attr">class</span>=<span class="str">"carre"</span><span class="punct">&gt;</span>A<span class="punct">&lt;/</span><span class="tag">div</span><span class="punct">&gt;</span>
+  <span class="punct">&lt;</span><span class="tag">div</span> <span class="attr">class</span>=<span class="str">"carre"</span><span class="punct">&gt;</span>B<span class="punct">&lt;/</span><span class="tag">div</span><span class="punct">&gt;</span>
+  <span class="punct">&lt;</span><span class="tag">div</span> <span class="attr">class</span>=<span class="str">"carre"</span><span class="punct">&gt;</span>C<span class="punct">&lt;/</span><span class="tag">div</span><span class="punct">&gt;</span>
+<span class="punct">&lt;/</span><span class="tag">div</span><span class="punct">&gt;</span></pre>
+        </div>
+        <div class="code-bloc">
+          <div class="code-header css-tab">CSS</div>
+<pre><span class="selector">.demo</span> <span class="punct">{</span>
+  <span class="prop">display</span><span class="punct">:</span> <span class="value">flex</span><span class="punct">;</span>
+  <span class="prop">justify-content</span><span class="punct">:</span> <span class="value" id="v-jc2">flex-start</span><span class="punct">;</span>
+  <span class="prop">gap</span><span class="punct">:</span> <span class="value" id="v-gap2">0</span>px<span class="punct">;</span>
+<span class="punct">}</span></pre>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ ÉTAPE 3 ============ -->
+  <section class="etape">
+    <div class="etape-header">
+      <div class="numero">3</div>
+      <div class="etape-titre">
+        <h2>L'axe vertical entre en jeu</h2>
+        <p>Maîtrise <code>align-items</code> sur l'axe secondaire</p>
+      </div>
+    </div>
+
+    <div class="etape-body">
+
+      <div class="analogie">
+        <h3>Analogie pour le HTML</h3>
+        <p>
+          La structure HTML est <strong>exactement la même</strong> qu'avant : trois carrés
+          dans une boîte. Le HTML décrit <strong>QUI</strong> est dans la page, le CSS décide
+          <strong>OÙ</strong> et <strong>COMMENT</strong> les choses sont placées.
+        </p>
+        <p>
+          Ce qui change ici, c'est qu'on a augmenté la <strong>hauteur</strong> du conteneur
+          (320px au lieu de 200px) pour avoir de la place verticalement et pouvoir jouer
+          avec le second axe.
+        </p>
+      </div>
+
+      <div class="bloc-cours">
+        <h3>Le concept Flexbox</h3>
+        <p>Flexbox travaille toujours avec <strong>deux axes</strong> :</p>
+        <p>
+          ▸ <strong>L'axe principal</strong> : celui sur lequel les items sont alignés
+          (par défaut horizontal). On le contrôle avec <code>justify-content</code>.<br>
+          ▸ <strong>L'axe secondaire</strong> : <strong>perpendiculaire</strong> à l'axe principal
+          (par défaut vertical). On le contrôle avec <code>align-items</code>.
+        </p>
+        <p><strong>Valeurs de <code>align-items</code> :</strong></p>
+        <p>
+          ▸ <code>stretch</code> (par défaut) : les items s'étirent pour remplir toute la hauteur,
+          SAUF s'ils ont une <code>height</code> fixée<br>
+          ▸ <code>flex-start</code> : items collés en haut<br>
+          ▸ <code>center</code> : items centrés verticalement<br>
+          ▸ <code>flex-end</code> : items collés en bas
+        </p>
+        <p>
+          <strong>Le combo magique pour centrer parfaitement :</strong>
+          <code>justify-content: center</code> + <code>align-items: center</code>.
+          C'est LA technique la plus utilisée en CSS moderne.
+        </p>
+      </div>
+
+      <div class="analogie">
+        <h3>Analogie pour le CSS</h3>
+        <p>
+          Pense à un <strong>tableau blanc</strong> dans une salle de classe sur lequel tu colles
+          trois post-it.
+        </p>
+        <p>
+          ▸ <code>justify-content</code> décide <strong>où horizontalement</strong> tu places la rangée
+          (à gauche, au milieu, à droite du tableau).<br>
+          ▸ <code>align-items</code> décide <strong>où verticalement</strong> tu colles cette rangée
+          (en haut du tableau, au milieu, en bas).
+        </p>
+        <p>
+          Combinées, ces deux propriétés agissent comme des <strong>coordonnées GPS</strong> :
+          horizontal + vertical = position exacte sur le tableau.
+        </p>
+      </div>
+
+      <div class="mission">
+        <h3>Missions</h3>
+        <p>
+          <strong>1 —</strong> Centre les 3 carrés au milieu absolu du conteneur.<br>
+          <strong>2 —</strong> Colle-les en bas à droite.<br>
+          <strong>3 —</strong> Répartis-les horizontalement avec <code>space-between</code>,
+          tous centrés verticalement.
+        </p>
+      </div>
+
+      <div class="controles">
+        <div class="controle">
+          <label for="jc3">justify-content (axe horizontal)</label>
+          <select id="jc3" onchange="up3()">
+            <option value="flex-start">flex-start</option>
+            <option value="center">center</option>
+            <option value="flex-end">flex-end</option>
+            <option value="space-between">space-between</option>
+            <option value="space-around">space-around</option>
+          </select>
+        </div>
+        <div class="controle">
+          <label for="ai3">align-items (axe vertical)</label>
+          <select id="ai3" onchange="up3()">
+            <option value="stretch">stretch</option>
+            <option value="flex-start">flex-start</option>
+            <option value="center">center</option>
+            <option value="flex-end">flex-end</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="demo haute" id="demo3">
+        <div class="carre c1">A</div>
+        <div class="carre c2">B</div>
+        <div class="carre c3">C</div>
+      </div>
+
+      <div class="code-tabs">
+        <div class="code-bloc">
+          <div class="code-header html-tab">HTML</div>
+<pre><span class="punct">&lt;</span><span class="tag">div</span> <span class="attr">class</span>=<span class="str">"demo"</span><span class="punct">&gt;</span>
+  <span class="punct">&lt;</span><span class="tag">div</span> <span class="attr">class</span>=<span class="str">"carre"</span><span class="punct">&gt;</span>A<span class="punct">&lt;/</span><span class="tag">div</span><span class="punct">&gt;</span>
+  <span class="punct">&lt;</span><span class="tag">div</span> <span class="attr">class</span>=<span class="str">"carre"</span><span class="punct">&gt;</span>B<span class="punct">&lt;/</span><span class="tag">div</span><span class="punct">&gt;</span>
+  <span class="punct">&lt;</span><span class="tag">div</span> <span class="attr">class</span>=<span class="str">"carre"</span><span class="punct">&gt;</span>C<span class="punct">&lt;/</span><span class="tag">div</span><span class="punct">&gt;</span>
+<span class="punct">&lt;/</span><span class="tag">div</span><span class="punct">&gt;</span></pre>
+        </div>
+        <div class="code-bloc">
+          <div class="code-header css-tab">CSS</div>
+<pre><span class="selector">.demo</span> <span class="punct">{</span>
+  <span class="prop">display</span><span class="punct">:</span> <span class="value">flex</span><span class="punct">;</span>
+  <span class="prop">height</span><span class="punct">:</span> <span class="value">320px</span><span class="punct">;</span>
+  <span class="prop">justify-content</span><span class="punct">:</span> <span class="value" id="v-jc3">flex-start</span><span class="punct">;</span>
+  <span class="prop">align-items</span><span class="punct">:</span> <span class="value" id="v-ai3">stretch</span><span class="punct">;</span>
+<span class="punct">}</span></pre>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ ÉTAPE 4 ============ -->
+  <section class="etape">
+    <div class="etape-header">
+      <div class="numero">4</div>
+      <div class="etape-titre">
+        <h2>Pivoter la direction</h2>
+        <p>Avec <code>flex-direction</code>, l'axe principal change</p>
+      </div>
+    </div>
+
+    <div class="etape-body">
+
+      <div class="analogie">
+        <h3>Analogie pour le HTML</h3>
+        <p>
+          Toujours la même structure HTML : trois <code>&lt;div&gt;</code> dans un parent.
+          Tu vois maintenant pourquoi le HTML est important : <strong>il ne change presque jamais</strong>.
+          C'est <strong>seulement le CSS</strong> qui transforme l'apparence visuelle.
+        </p>
+        <p>
+          C'est la séparation <strong>contenu / présentation</strong> : le HTML décrit le sens
+          des choses, le CSS s'occupe du look.
+        </p>
+      </div>
+
+      <div class="bloc-cours">
+        <h3>Le concept Flexbox</h3>
+        <p>
+          Par défaut, les items s'alignent <strong>horizontalement</strong>
+          (<code>flex-direction: row</code>).
+          Mais on peut <strong>pivoter</strong> cet axe principal pour qu'il devienne vertical.
+        </p>
+        <p>
+          ▸ <code>row</code> (par défaut) : axe principal = horizontal, gauche → droite<br>
+          ▸ <code>row-reverse</code> : axe principal = horizontal, droite → gauche<br>
+          ▸ <code>column</code> : axe principal = <strong>vertical</strong>, haut → bas<br>
+          ▸ <code>column-reverse</code> : axe principal = vertical, bas → haut
+        </p>
+        <p>
+          <strong>Le piège qui perd tout le monde :</strong> quand tu passes en
+          <code>column</code>, l'axe principal devient vertical, donc <code>justify-content</code>
+          contrôle maintenant le <strong>vertical</strong>, et <code>align-items</code> contrôle
+          l'<strong>horizontal</strong>. <strong>Les deux propriétés s'inversent.</strong>
+        </p>
+        <p>
+          Les noms <code>justify-content</code> et <code>align-items</code> ne sont
+          <strong>pas liés à "horizontal" ou "vertical"</strong>, ils sont liés aux notions
+          d'<strong>axe principal</strong> et d'<strong>axe secondaire</strong>.
+        </p>
+      </div>
+
+      <div class="analogie">
+        <h3>Analogie pour le CSS</h3>
+        <p>
+          Imagine que tu fais tourner un <strong>livre posé à plat sur une table d'un quart de tour</strong>.
+          Ce qui était la "longueur" devient la "largeur", et inversement.
+        </p>
+        <p>
+          C'est exactement ce que fait <code>flex-direction: column</code> : l'axe principal pivote.
+          Du coup, la propriété qui déplaçait tes carrés <strong>de gauche à droite</strong> les déplace
+          maintenant <strong>de haut en bas</strong>. Le mot <code>justify-content</code> n'a pas changé,
+          mais sa <strong>direction d'action</strong> oui.
+        </p>
+        <p>
+          Autre image : pense à une <strong>boussole</strong>. <code>justify-content</code> pointe
+          toujours dans la direction principale, mais cette direction peut être Nord-Sud ou Est-Ouest
+          selon comment tu orientes la boussole.
+        </p>
+      </div>
+
+      <div class="mission">
+        <h3>Missions</h3>
+        <p>
+          <strong>1 —</strong> Passe en <code>column</code> et empile les 3 carrés
+          verticalement, centrés horizontalement.<br>
+          <strong>2 —</strong> En <code>column</code>, mets les carrés en bas du conteneur.<br>
+          <strong>3 —</strong> Teste <code>row-reverse</code>. Quel carré est maintenant
+          à gauche ? Pourquoi ?
+        </p>
+      </div>
+
+      <div class="indice">
+        <h3>Test de compréhension</h3>
+        <p>
+          En mode <code>column</code>, si tu veux centrer un seul carré au milieu absolu,
+          tu utilises quelles propriétés ?
+        </p>
+        <p>
+          <strong>Réponse :</strong> exactement les mêmes qu'en mode <code>row</code> ! Le combo
+          <code>justify-content: center</code> + <code>align-items: center</code> marche dans
+          toutes les directions, parce qu'il centre sur les <strong>deux axes</strong> à la fois.
+        </p>
+      </div>
+
+      <div class="controles">
+        <div class="controle">
+          <label for="fd4">flex-direction</label>
+          <select id="fd4" onchange="up4()">
+            <option value="row">row</option>
+            <option value="row-reverse">row-reverse</option>
+            <option value="column">column</option>
+            <option value="column-reverse">column-reverse</option>
+          </select>
+        </div>
+        <div class="controle">
+          <label for="jc4">justify-content (axe principal)</label>
+          <select id="jc4" onchange="up4()">
+            <option value="flex-start">flex-start</option>
+            <option value="center">center</option>
+            <option value="flex-end">flex-end</option>
+            <option value="space-between">space-between</option>
+          </select>
+        </div>
+        <div class="controle">
+          <label for="ai4">align-items (axe secondaire)</label>
+          <select id="ai4" onchange="up4()">
+            <option value="stretch">stretch</option>
+            <option value="flex-start">flex-start</option>
+            <option value="center">center</option>
+            <option value="flex-end">flex-end</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="demo haute" id="demo4">
+        <div class="carre c1">A</div>
+        <div class="carre c2">B</div>
+        <div class="carre c3">C</div>
+      </div>
+
+      <div class="code-tabs">
+        <div class="code-bloc">
+          <div class="code-header html-tab">HTML</div>
+<pre><span class="punct">&lt;</span><span class="tag">div</span> <span class="attr">class</span>=<span class="str">"demo"</span><span class="punct">&gt;</span>
+  <span class="punct">&lt;</span><span class="tag">div</span> <span class="attr">class</span>=<span class="str">"carre"</span><span class="punct">&gt;</span>A<span class="punct">&lt;/</span><span class="tag">div</span><span class="punct">&gt;</span>
+  <span class="punct">&lt;</span><span class="tag">div</span> <span class="attr">class</span>=<span class="str">"carre"</span><span class="punct">&gt;</span>B<span class="punct">&lt;/</span><span class="tag">div</span><span class="punct">&gt;</span>
+  <span class="punct">&lt;</span><span class="tag">div</span> <span class="attr">class</span>=<span class="str">"carre"</span><span class="punct">&gt;</span>C<span class="punct">&lt;/</span><span class="tag">div</span><span class="punct">&gt;</span>
+<span class="punct">&lt;/</span><span class="tag">div</span><span class="punct">&gt;</span></pre>
+        </div>
+        <div class="code-bloc">
+          <div class="code-header css-tab">CSS</div>
+<pre><span class="selector">.demo</span> <span class="punct">{</span>
+  <span class="prop">display</span><span class="punct">:</span> <span class="value">flex</span><span class="punct">;</span>
+  <span class="prop">flex-direction</span><span class="punct">:</span> <span class="value" id="v-fd4">row</span><span class="punct">;</span>
+  <span class="prop">justify-content</span><span class="punct">:</span> <span class="value" id="v-jc4">flex-start</span><span class="punct">;</span>
+  <span class="prop">align-items</span><span class="punct">:</span> <span class="value" id="v-ai4">stretch</span><span class="punct">;</span>
+<span class="punct">}</span></pre>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    Astuce : ouvre l'inspecteur (clic droit -> Inspecter) pour voir le code en direct
+  </footer>
+
+  <script>
+    function up1() {
+      const v = document.getElementById('jc1').value;
+      document.getElementById('demo1').style.justifyContent = v;
+      document.getElementById('v-jc1').textContent = v;
+    }
+
+    function up2() {
+      const jc = document.getElementById('jc2').value;
+      const gap = document.getElementById('gap2').value;
+      const d = document.getElementById('demo2');
+      d.style.justifyContent = jc;
+      d.style.gap = gap + 'px';
+      document.getElementById('v-jc2').textContent = jc;
+      document.getElementById('v-gap2').textContent = gap;
+    }
+
+    function up3() {
+      const jc = document.getElementById('jc3').value;
+      const ai = document.getElementById('ai3').value;
+      const d = document.getElementById('demo3');
+      d.style.justifyContent = jc;
+      d.style.alignItems = ai;
+      document.getElementById('v-jc3').textContent = jc;
+      document.getElementById('v-ai3').textContent = ai;
+    }
+
+    function up4() {
+      const fd = document.getElementById('fd4').value;
+      const jc = document.getElementById('jc4').value;
+      const ai = document.getElementById('ai4').value;
+      const d = document.getElementById('demo4');
+      d.style.flexDirection = fd;
+      d.style.justifyContent = jc;
+      d.style.alignItems = ai;
+      document.getElementById('v-fd4').textContent = fd;
+      document.getElementById('v-jc4').textContent = jc;
+      document.getElementById('v-ai4').textContent = ai;
+    }
+  </script>
+</body>
+</html>
